@@ -26,6 +26,21 @@ cask "markview" do
 
   app "MarkView.app"
 
+  # Belt-and-braces: explicitly strip com.apple.quarantine after the
+  # Cask copies the .app into /Applications. Modern Homebrew Cask
+  # versions already do this for unsigned apps, but on some macOS
+  # releases the bit-flags get rewritten rather than removed, which
+  # CAN still trip the Gatekeeper warning the first time a user
+  # double-clicks the app in Finder. Running xattr -dr ourselves
+  # makes the install path identical to MarkView's in-app updater,
+  # which has been bulletproof.
+  postflight do
+    system_command "/usr/bin/xattr",
+                   args: ["-dr", "com.apple.quarantine",
+                          "#{appdir}/MarkView.app"],
+                   must_succeed: false
+  end
+
   # `brew uninstall --cask markview` cleans the app. `brew uninstall
   # --zap --cask markview` ALSO removes per-Mac config + the vault
   # path pointer. The vault itself (~/Documents/MarkView Vault or
