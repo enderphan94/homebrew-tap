@@ -2,8 +2,7 @@ cask "markview" do
   version "2.2.5"
   sha256 "bec3234735ce8b1925a7c7f976fe0f3f557f1815de8d029a163c36232a89f7da"
 
-  url "https://github.com/enderphan94/markdown-app/releases/download/v#{version}/MarkView-#{version}.dmg",
-      verified: "github.com/enderphan94/markdown-app/"
+  url "https://github.com/enderphan94/markdown-app/releases/download/v#{version}/MarkView-#{version}.dmg"
   name "MarkView"
   desc "Offline markdown editor with mermaid diagrams and iCloud-syncable vault"
   homepage "https://github.com/enderphan94/markdown-app"
@@ -23,8 +22,7 @@ cask "markview" do
   # means — users see the update modal inside MarkView and can also
   # `brew upgrade --cask markview`. Either path works.
   auto_updates true
-
-  depends_on macos: ">= :big_sur"
+  depends_on macos: :big_sur
 
   app "MarkView.app"
 
